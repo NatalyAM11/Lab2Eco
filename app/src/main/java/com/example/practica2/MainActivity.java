@@ -18,6 +18,9 @@ public class MainActivity extends AppCompatActivity {
 
     private ArrayList <Pregunta> preguntas;
 
+    private int num1,num2,operacion;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,16 +31,18 @@ public class MainActivity extends AppCompatActivity {
         buttonA= findViewById(R.id.buttonA);
         puntajeA= findViewById(R.id.puntajeA);
         preguntas= new ArrayList<>();
-
-
+       /* num1= (int) Math.random (1,5);
+        num2= (int) Math.random (1,5);
+        operacion= (int) Math.random (1,5);*/
 
 
     }
-    public void hacerPregunta(){
 
-        //for (int i=0, i<10,i++){
-
+    public void preguntar(){
+        for (int i = 0; i < 20; i++) {
+            preguntas.add(new Pregunta(num1,num2,operacion));
         }
+    }
     }
 
 
