@@ -22,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
     private int num1,num2,operacion;
     private int contadorsito;
     private int puntaje;
+    private boolean activarContador;
 
 
     @Override
@@ -38,36 +39,65 @@ public class MainActivity extends AppCompatActivity {
         num1= (int) (Math.random ()*25+1);
         num2= (int) (Math.random ()*25+1);
         operacion= (int) (Math.random ()*4+1);
-
-        titleA.setText(num1+" "+ preguntas+" "+ num2);
-
-
-        //este es el contador pero no se donde ponerlo aun
-        /*contadorsito--;
-        contador.setText(" "+ contadorsito);*/
+        contadorsito=20;
+        activarContador=true;
 
 
+
+        for (int i = 0; i < preguntas.size(); i++) {
+            preguntas.add(new Pregunta(num1,num2,operacion));
+        }
+
+        for (int i = 0; i < preguntas.size(); i++) {
+            preguntas. get(i).preguntar();
+            titleA.setText(preguntas.get(i).getPregunta()+" ");
+        }
+
+
+        //tiempo();
+
+
+        //Confirmacion respuesta del usuario
         buttonA.setOnClickListener(
                 (v)->{
+
                     String laRespuesta = answerA.getText().toString();
 
+                           /*  for (int i = 0; i < preguntas.size(); i++){
+                                 if (laRespuesta== preguntas.get(i).getSolucion()){
+                                             puntaje+=15;
+                             }
+
+                        }*/
                 }
 
-              /*  if (laRespuesta== preguntas.get(solucion)){
-                        puntaje+=15;
-        }*/
         );
+
+
+
     }
 
 
 
-    public void preguntar(){
 
-        for (int i = 0; i < preguntas.size(); i++) {
-               preguntas. get(i).preguntar();
-        }
+    //este es el contador pero no se donde ponerlo aun, y no funciona bien :/
 
-        preguntas.add(new Pregunta(num1,num2,operacion));
+    public void tiempo (){
+
+        new Thread(
+                ()-> {
+                    while (activarContador) {
+                        contadorsito--;
+                        contador.setText(" " + contadorsito);
+                        try {
+                            Thread.sleep(3000);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+        ).start();
+
     }
 
 
