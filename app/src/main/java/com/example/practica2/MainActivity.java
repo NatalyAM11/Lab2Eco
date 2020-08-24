@@ -15,10 +15,13 @@ public class MainActivity extends AppCompatActivity {
     private EditText answerA;
     private Button buttonA;
     private TextView puntajeA;
+    private TextView contador;
 
     private ArrayList <Pregunta> preguntas;
 
     private int num1,num2,operacion;
+    private int contadorsito;
+    private int puntaje;
 
 
     @Override
@@ -30,19 +33,44 @@ public class MainActivity extends AppCompatActivity {
         answerA= findViewById(R.id.answerA);
         buttonA= findViewById(R.id.buttonA);
         puntajeA= findViewById(R.id.puntajeA);
+        contador=findViewById(R.id.contador);
         preguntas= new ArrayList<>();
-       /* num1= (int) Math.random (1,5);
-        num2= (int) Math.random (1,5);
-        operacion= (int) Math.random (1,5);*/
+        num1= (int) (Math.random ()*25+1);
+        num2= (int) (Math.random ()*25+1);
+        operacion= (int) (Math.random ()*4+1);
+
+        titleA.setText(num1+" "+ preguntas+" "+ num2);
 
 
+        //este es el contador pero no se donde ponerlo aun
+        /*contadorsito--;
+        contador.setText(" "+ contadorsito);*/
+
+
+        buttonA.setOnClickListener(
+                (v)->{
+                    String laRespuesta = answerA.getText().toString();
+
+                }
+
+              /*  if (laRespuesta== preguntas.get(solucion)){
+                        puntaje+=15;
+        }*/
+        );
     }
+
+
 
     public void preguntar(){
-        for (int i = 0; i < 20; i++) {
-            preguntas.add(new Pregunta(num1,num2,operacion));
+
+        for (int i = 0; i < preguntas.size(); i++) {
+               preguntas. get(i).preguntar();
         }
+
+        preguntas.add(new Pregunta(num1,num2,operacion));
     }
+
+
     }
 
 
