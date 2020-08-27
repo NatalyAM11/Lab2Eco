@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         contadorsito = 10;
         activarContador = true;
         activarPuntaje=false;
-        masPregunta=false;
+
 
         BIntentar.setVisibility(View.GONE);
 
@@ -58,12 +58,28 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             puntaje-=2;
         }*/
 
+
+
+
+
         //cronometro
         tiempo();
 
 
-        if(correcto=true){
-            puntaje+=10;
+
+        BIntentar.setOnClickListener(
+                (v)->{
+
+                    nextQuestion();
+                    activarContador=true;
+                    BIntentar.setVisibility(View.GONE);
+                }
+        );
+
+        if(correcto==false){
+            masPregunta=false;
+           // puntaje+=10;
+
         } /*else{
             puntaje-=2;
         }*/
@@ -72,19 +88,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         //Confirmacion respuesta del usuario
         buttonA.setOnClickListener(this);
-
-        BIntentar.setOnClickListener(
-                (v)->{
-
-                    nextQuestion();
-                    contadorsito=50;
-
-
-                    BIntentar.setVisibility(View.GONE);
-
-
-                }
-        );
 
 
     }
@@ -103,18 +106,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             if (laRespuesta.equals(Integer.toString(preguntas.get(i).getSolucion()))) {
                 //puntaje += 10;
+
+                //reinicio el contador
+                contadorsito=21;
+                activarContador=true;
+
+                //le permito seguir a la otra pregunta
                 masPregunta=true;
 
                 if(masPregunta==true){
                 nextQuestion();
                 }
-                correcto=true;
+
+
 
             }
-            /*else {
-                puntaje -= 2;
-            }*/
-
 
             //Log.e("prueba" , ""+preguntas.get(i).getSolucion());
             Log.e("prueba" , ""+puntaje);
@@ -138,10 +144,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                                 //Detengo que genere mas preguntas despues de que el tiempo acabe
                                 masPregunta=false;
+                                contadorsito=20;
 
                                 //asi aparece el otro boton
                                 runOnUiThread( () ->  BIntentar.setVisibility(View.VISIBLE));
-
+                                
                             }
 
                             try {
