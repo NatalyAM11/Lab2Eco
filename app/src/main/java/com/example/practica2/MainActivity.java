@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private int num1, num2, operacion;
     private int contadorsito;
     private int puntaje;
-    private boolean activarContador,activarPuntaje, bueno;
+    private boolean activarContador,activarPuntaje, masPregunta, correcto;
 
 
 
@@ -45,17 +45,28 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         contadorsito = 10;
         activarContador = true;
         activarPuntaje=false;
+        masPregunta=false;
 
         BIntentar.setVisibility(View.GONE);
 
-
+        correcto=false;
 
 
         nextQuestion();
 
+     /*   if (activarContador==false){
+            puntaje-=2;
+        }*/
+
         //cronometro
         tiempo();
 
+
+        if(correcto=true){
+            puntaje+=10;
+        } /*else{
+            puntaje-=2;
+        }*/
 
 
 
@@ -64,7 +75,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         BIntentar.setOnClickListener(
                 (v)->{
+
                     nextQuestion();
+                    contadorsito=50;
+
+
+                    BIntentar.setVisibility(View.GONE);
 
 
                 }
@@ -86,15 +102,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         for (int i = 0; i < preguntas.size(); i++) {
 
             if (laRespuesta.equals(Integer.toString(preguntas.get(i).getSolucion()))) {
-                puntaje += 10;
+                //puntaje += 10;
+                masPregunta=true;
+
+                if(masPregunta==true){
                 nextQuestion();
-                boolean correcto=true;
-
-
+                }
+                correcto=true;
 
             }
-
-
             /*else {
                 puntaje -= 2;
             }*/
@@ -118,8 +134,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             runOnUiThread( () ->contador.setText(" " + contadorsito));
 
                             if (contadorsito==0){
-                                puntaje-=2;
                                 activarContador=false;
+
+                                //Detengo que genere mas preguntas despues de que el tiempo acabe
+                                masPregunta=false;
 
                                 //asi aparece el otro boton
                                 runOnUiThread( () ->  BIntentar.setVisibility(View.VISIBLE));
@@ -146,6 +164,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         num2 = (int) Math.floor((Math.random() * 10 + 1));
         operacion = (int) Math.floor((Math.random() * 5 + 1));
         preguntas.add(new Pregunta(num1, num2, operacion));
+
 
         for (int i = 0; i < preguntas.size(); i++) {
             preguntas.get(i).preguntar();
