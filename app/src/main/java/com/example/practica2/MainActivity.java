@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private int num1, num2, operacion;
     private int contadorsito;
     private int puntaje;
-    private boolean activarContador,activarPuntaje, masPregunta, correcto;
+    private boolean activarContador,activarPuntaje, masPregunta, fail, cReinicio;
 
 
 
@@ -45,45 +45,29 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         contadorsito = 10;
         activarContador = true;
         activarPuntaje=false;
+        cReinicio=true;
 
 
         BIntentar.setVisibility(View.GONE);
 
-        correcto=false;
+        BIntentar.setOnClickListener(
 
+                (v)->{
+                    activarContador=true;
+                    contador.setText(" " + contadorsito);
+                    nextQuestion();
 
-        nextQuestion();
+                    BIntentar.setVisibility(View.GONE);
 
-     /*   if (activarContador==false){
-            puntaje-=2;
-        }*/
-
-
-
+                }
+        );
 
 
         //cronometro
         tiempo();
 
-
-
-        BIntentar.setOnClickListener(
-                (v)->{
-
-                    nextQuestion();
-                    activarContador=true;
-                    BIntentar.setVisibility(View.GONE);
-                }
-        );
-
-        if(correcto==false){
-            masPregunta=false;
-           // puntaje+=10;
-
-        } /*else{
-            puntaje-=2;
-        }*/
-
+        // correcto();
+        nextQuestion();
 
 
         //Confirmacion respuesta del usuario
@@ -93,11 +77,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
 
+
     @Override
     public void onClick(View view) {
 
-       // puntajeA.setText("Puntaje: " + puntaje);
         String laRespuesta = answerA.getText().toString();
+
+        //valido el  puntaje
+        fail();
 
         //edito puntaje
         puntajeA.setText("Puntaje: " + puntaje);
@@ -105,7 +92,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         for (int i = 0; i < preguntas.size(); i++) {
 
             if (laRespuesta.equals(Integer.toString(preguntas.get(i).getSolucion()))) {
-                //puntaje += 10;
+
+                fail=false;
 
                 //reinicio el contador
                 contadorsito=21;
@@ -119,7 +107,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
 
 
-
             }
 
             //Log.e("prueba" , ""+preguntas.get(i).getSolucion());
@@ -128,13 +115,25 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
 
-    //este es el contador pero no se donde ponerlo aun, y no funciona bien :/
+    public void fail(){
+
+        if(fail==false){
+            puntaje=+10;
+        } else {
+            puntaje-=2;
+        }
+
+    }
+
+
+    //este es el contador
 
         public void tiempo () {
 
             new Thread(
 
                     () -> {
+
                         while (activarContador) {
                             contadorsito--;
                             runOnUiThread( () ->contador.setText(" " + contadorsito));
@@ -148,7 +147,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                                 //asi aparece el otro boton
                                 runOnUiThread( () ->  BIntentar.setVisibility(View.VISIBLE));
-                                
+
                             }
 
                             try {
@@ -179,11 +178,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
 
     }
-
-
-
-
-
 
 }
 
