@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         contador = findViewById(R.id.contador);
         BIntentar=findViewById(R.id.BIntentar);
         puntaje=0;
-        contadorsito = 10;
+        contadorsito = 20;
         activarContador = true;
         activarPuntaje=false;
         cReinicio=true;
@@ -53,9 +53,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                 (v)->{
                     activarContador=true;
-                    contador.setText(" " + contadorsito);
+
                     nextQuestion();
 
+                    puntaje=0;
+
+                    //edito puntaje
+                    puntajeA.setText("Puntaje: " + puntaje);
+                    contador.setText(" " + contadorsito);
                     BIntentar.setVisibility(View.GONE);
 
                 }
@@ -104,7 +109,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
             } else{
-                puntaje-=10;
+                puntaje-=5;
 
                 //borro lo del usuario
                 answerA.setText(" ");
@@ -134,7 +139,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                 //Detengo que genere mas preguntas despues de que el tiempo acabe
                                 masPregunta=false;
                                 contadorsito=20;
-                                puntaje=0;
+
                                 //asi aparece el otro boton
                                 runOnUiThread( () ->  BIntentar.setVisibility(View.VISIBLE));
 
