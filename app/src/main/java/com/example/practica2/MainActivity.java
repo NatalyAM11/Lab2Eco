@@ -99,9 +99,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 nextQuestion();
                 }
 
+                //borro lo del usuario
+                answerA.setText(" ");
 
+
+            } else{
+                puntaje-=10;
+
+                //borro lo del usuario
+                answerA.setText(" ");
             }
-            
+
 
         //edito puntaje
         puntajeA.setText("Puntaje: " + puntaje);
