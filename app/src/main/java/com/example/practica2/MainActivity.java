@@ -20,7 +20,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private TextView contador;
     private Button BIntentar;
 
-    private ArrayList<Pregunta> preguntas;
+    private Pregunta preguntas;
 
     private int num1, num2, operacion;
     private int contadorsito;
@@ -40,7 +40,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         puntajeA = findViewById(R.id.puntajeA);
         contador = findViewById(R.id.contador);
         BIntentar=findViewById(R.id.BIntentar);
-        preguntas = new ArrayList<Pregunta>();
         puntaje=0;
         contadorsito = 10;
         activarContador = true;
@@ -84,16 +83,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         String laRespuesta = answerA.getText().toString();
 
         //valido el  puntaje
-        fail();
 
-        //edito puntaje
-        puntajeA.setText("Puntaje: " + puntaje);
-
-        for (int i = 0; i < preguntas.size(); i++) {
-
-            if (laRespuesta.equals(Integer.toString(preguntas.get(i).getSolucion()))) {
-
-                fail=false;
+            if (laRespuesta.equals(Integer.toString(preguntas.getSolucion()))) {
+                puntaje+=10;
+                //fail=false;
 
                 //reinicio el contador
                 contadorsito=21;
@@ -108,21 +101,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
             }
+            
 
-            //Log.e("prueba" , ""+preguntas.get(i).getSolucion());
-            Log.e("prueba" , ""+puntaje);
-        }
-    }
-
-
-    public void fail(){
-
-        if(fail==false){
-            puntaje=+10;
-        } else {
-            puntaje-=2;
-        }
-
+        //edito puntaje
+        puntajeA.setText("Puntaje: " + puntaje);
     }
 
 
@@ -144,7 +126,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                 //Detengo que genere mas preguntas despues de que el tiempo acabe
                                 masPregunta=false;
                                 contadorsito=20;
-
+                                puntaje=0;
                                 //asi aparece el otro boton
                                 runOnUiThread( () ->  BIntentar.setVisibility(View.VISIBLE));
 
@@ -169,15 +151,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         num1 = (int) Math.floor((Math.random() * 10 + 1));
         num2 = (int) Math.floor((Math.random() * 10 + 1));
         operacion = (int) Math.floor((Math.random() * 5 + 1));
-        preguntas.add(new Pregunta(num1, num2, operacion));
+        preguntas= new Pregunta(num1,num2,operacion);
 
 
-        for (int i = 0; i < preguntas.size(); i++) {
-            preguntas.get(i).preguntar();
-            titleA.setText(preguntas.get(i).devolverPregunta()+" ");
+            preguntas.preguntar();
+            titleA.setText(preguntas.devolverPregunta()+" ");
         }
 
-    }
+
 
 }
 
