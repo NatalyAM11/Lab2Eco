@@ -89,31 +89,31 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         //valido el  puntaje
 
-            if (laRespuesta.equals(Integer.toString(preguntas.getSolucion()))) {
-                puntaje+=10;
-                //fail=false;
+        if (laRespuesta.equals(Integer.toString(preguntas.getSolucion()))) {
+            puntaje+=10;
+            //fail=false;
 
-                //reinicio el contador
-                contadorsito=21;
-                activarContador=true;
+            //reinicio el contador
+            contadorsito=21;
+            activarContador=true;
 
-                //le permito seguir a la otra pregunta
-                masPregunta=true;
+            //le permito seguir a la otra pregunta
+            masPregunta=true;
 
-                if(masPregunta==true){
+            if(masPregunta==true){
                 nextQuestion();
-                }
-
-                //borro lo del usuario
-                answerA.setText(" ");
-
-
-            } else{
-                puntaje-=5;
-
-                //borro lo del usuario
-                answerA.setText(" ");
             }
+
+            //borro lo del usuario
+            answerA.setText(" ");
+
+
+        } else{
+            puntaje-=5;
+
+            //borro lo del usuario
+            answerA.setText(" ");
+        }
 
 
         //edito puntaje
@@ -123,38 +123,38 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     //este es el contador
 
-        public void tiempo () {
+    public void tiempo () {
 
-            new Thread(
+        new Thread(
 
-                    () -> {
+                () -> {
 
-                        while (activarContador) {
-                            contadorsito--;
-                            runOnUiThread( () ->contador.setText(" " + contadorsito));
+                    while (activarContador) {
+                        contadorsito--;
+                        runOnUiThread( () ->contador.setText(" " + contadorsito));
 
-                            if (contadorsito==0){
-                                activarContador=false;
+                        if (contadorsito==0){
+                            activarContador=false;
 
-                                //Detengo que genere mas preguntas despues de que el tiempo acabe
-                                masPregunta=false;
-                                contadorsito=20;
+                            //Detengo que genere mas preguntas despues de que el tiempo acabe
+                            masPregunta=false;
+                            contadorsito=20;
 
-                                //asi aparece el otro boton
-                                runOnUiThread( () ->  BIntentar.setVisibility(View.VISIBLE));
+                            //asi aparece el otro boton
+                            runOnUiThread( () ->  BIntentar.setVisibility(View.VISIBLE));
 
-                            }
+                        }
 
-                            try {
-                                Thread.sleep(1000);
-                            } catch (InterruptedException e) {
-                                e.printStackTrace();
-                            }
+                        try {
+                            Thread.sleep(1000);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
                         }
                     }
-            ).start();
+                }
+        ).start();
 
-        }
+    }
 
 
 
@@ -167,13 +167,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         preguntas= new Pregunta(num1,num2,operacion);
 
 
-            preguntas.preguntar();
-            titleA.setText(preguntas.devolverPregunta()+" ");
-        }
+        preguntas.preguntar();
+        titleA.setText(preguntas.devolverPregunta()+" ");
+    }
 
 
 
 }
-
-
-

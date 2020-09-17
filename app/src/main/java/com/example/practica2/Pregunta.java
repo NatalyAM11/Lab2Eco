@@ -2,32 +2,91 @@ package com.example.practica2;
 
 public class Pregunta {
 
-    String preguntas;
-    String respuestas;
+    int num1;
+    int num2;
+    int operacion;
+    int solucion;
+    String pregunta;
 
-    public Pregunta(String preguntas, String respuestas) {
-        this.preguntas = preguntas;
-        this.respuestas = respuestas;
+
+    public Pregunta(int num1, int num2, int operacion) {
+
+        this.num1=num1;
+        this.num2=num2;
+        this.operacion= operacion;
+
+    }
+
+    public void preguntar () {
+
+        switch (operacion){
+
+            //sumar
+            case 1:
+                pregunta=num1+"+"+num2;
+                solucion=num1+num2;
+            break;
+            //resta
+            case 2:
+                pregunta=num1+"-"+num2;
+                solucion=num1-num2;
+            break;
+            //multiplicacion
+            case 3:
+                pregunta=num1+"*"+num2;
+                solucion=num1*num2;
+            break;
+            //division
+            case 4:
+                pregunta=num1+"/"+num2;
+                solucion=num1/num2;
+            break;
+        }
+    }
+
+    String devolverPregunta(){
+        return pregunta;
     }
 
 
-
-
-
-    //getters and setters
-    public String getPreguntas() {
-        return preguntas;
+    public int getNum1() {
+        return num1;
     }
 
-    public void setPreguntas(String preguntas) {
-        this.preguntas = preguntas;
+    public void setNum1(int num1) {
+        this.num1 = num1;
     }
 
-    public String getRespuestas() {
-        return respuestas;
+    public int getNum2() {
+        return num2;
     }
 
-    public void setRespuestas(String respuestas) {
-        this.respuestas = respuestas;
+    public void setNum2(int num2) {
+        this.num2 = num2;
+    }
+
+    public int getOperacion() {
+        return operacion;
+    }
+
+    public void setOperacion(int operacion) {
+        this.operacion = operacion;
+    }
+
+    public int getSolucion() {
+        return solucion;
+    }
+
+    public void setSolucion(int solucion) {
+        this.solucion = solucion;
+    }
+
+    public String getPregunta() {
+        return pregunta;
+    }
+
+    public void setPregunta(String pregunta) {
+        this.pregunta = pregunta;
     }
 }
+
